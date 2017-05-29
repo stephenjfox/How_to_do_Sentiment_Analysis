@@ -2,31 +2,28 @@ import pandas as pd
 
 # Easy is to map a review to simply "positive" or "negative"
 # Hard maps the reviews to their full descriptions:
-# Amazing, Great, Good, Mediocre, painful, or awful
-difficulty = { 'easy': { 'output_nodes': 2 }, 'hard': { 'output_nodes': 6 } }
+# learned more about the data set: "Masterpiece", "Unbearable", "Disaster", "Okay" are also rating phrases
+# Masterpiece, Amazing, Great, Good, Okay, Mediocre, Awful, Painful, Unbearable, Disaster
+
+difficulty = { 'easy': { 'output_nodes': 2 }, 'hard': { 'output_nodes': 10 } }
 
 # Data Preparation
 ## 0. Read data
-data = pd.read_csv('ign.csv')
-
 ## 1. Clean data (i.e. remove redundancies)
+data = pd.read_csv('cleaned_ign_reviews.csv')
 
-### this is selecting distinct rows, based on title
-### Games rarely get different scores on different platforms, and I don't want
-### the rarity to scew the results
-data = data.drop_duplicates(subset=['title'])
 
-### the title should be irrelevant. There's no NLP to help that along
-data = data.drop(['url'], axis=1)
+# Data Investigation
+## get one of each phrased review
+one_of_each = data.drop_duplicates(['score_phrase'])
+distincts_as_reviews = one_of_each[['title', 'score_phrase', 'score']]
+print(distincts_as_reviews.sort_values('score', ascending=False))
 
-### the same goes for the platform - PS4 games do just as well as XBone games
-data = data.drop(['platform'], axis=1).drop('Unnamed: 0', axis=1)
-
-# leave off the indices column
-data.to_csv('cleaned_ign_reviews.csv', index=False)
+# end investigation
 
 ## 2. Transform
 ### Normalize
+
 ### * -> Numeric
 
 ## 3. Reduction
