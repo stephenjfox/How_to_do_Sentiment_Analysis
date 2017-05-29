@@ -9,8 +9,6 @@ difficulty = { 'easy': { 'output_nodes': 2 }, 'hard': { 'output_nodes': 6 } }
 ## 0. Read data
 data = pd.read_csv('ign.csv')
 
-print('Starting size =', len(data))
-print('Starting columns', data.columns)
 ## 1. Clean data (i.e. remove redundancies)
 
 ### this is selecting distinct rows, based on title
@@ -19,14 +17,13 @@ print('Starting columns', data.columns)
 data = data.drop_duplicates(subset=['title'])
 
 ### the title should be irrelevant. There's no NLP to help that along
-data = data.drop(['title'], axis=1)
+data = data.drop(['url'], axis=1)
 
 ### the same goes for the platform - PS4 games do just as well as XBone games
-data = data.drop(['platform'], axis=1)
+data = data.drop(['platform'], axis=1).drop('Unnamed: 0', axis=1)
 
-# let's see how I did
-print('Remaining columns:', data.columns)
-print('Post trimming size =', len(data))
+# leave off the indices column
+data.to_csv('cleaned_ign_reviews.csv', index=False)
 
 ## 2. Transform
 ### Normalize
