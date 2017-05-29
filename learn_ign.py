@@ -10,22 +10,34 @@ difficulty = { 'easy': { 'output_nodes': 2 }, 'hard': { 'output_nodes': 10 } }
 # Data Preparation
 ## 0. Read data
 ## 1. Clean data (i.e. remove redundancies)
-data = pd.read_csv('cleaned_ign_reviews.csv')
+df = pd.read_csv('cleaned_ign_reviews.csv')
 
-
-# Data Investigation
-## get one of each phrased review
-one_of_each = data.drop_duplicates(['score_phrase'])
-distincts_as_reviews = one_of_each[['title', 'score_phrase', 'score']]
-print(distincts_as_reviews.sort_values('score', ascending=False))
-
-# end investigation
 
 ## 2. Transform
+### * -> Numeric
+
+print(df[:10])
 ### Normalize
 
-### * -> Numeric
 
 ## 3. Reduction
 ### Dimensionality Reduction
 ### Feature Extraction
+
+
+# Load into TFLearn model: http://tflearn.org/data_utils/#load_csv
+# TODO: After getting the data into numeric form I should do the following
+
+## Taken from the notebook on "your first neural network"
+## translate each category into multiple columns that are binary.
+## Then it will be all the easier for the network to work with it.
+
+# dummy_fields = ['season', 'weathersit', 'mnth', 'hr', 'weekday']
+# for each in dummy_fields:
+#     dummies = pd.get_dummies(rides[each], prefix=each, drop_first=False)
+#     rides = pd.concat([rides, dummies], axis=1)
+#
+# fields_to_drop = ['instant', 'dteday', 'season', 'weathersit',
+#                   'weekday', 'atemp', 'mnth', 'workingday', 'hr']
+# data = rides.drop(fields_to_drop, axis=1)
+# data.head()
