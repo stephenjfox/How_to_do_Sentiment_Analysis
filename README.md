@@ -1,10 +1,10 @@
-# How_to_do_Sentiment_Analysis
+# Siraj's Sentiment Analysis Challenge
 This is the code for 'How to Do Sentiment Analysis' #3 - Intro to Deep Learning by Siraj Raval on Youtube
 
 
 ## Overview
 
-This is the code for [this](https://youtu.be/si8zZHkufRY) video on Youtube by Siraj Raval. It uses [TFLearn](http://tflearn.org/) to train a Sentiment Analyzer on a set of IMDB [Movie ratings](https://www.kaggle.com/deepmatrix/imdb-5000-movie-dataset). Once trained, given some input text, it will be able to classify it as either positive or negative. The neural network that is built for this is a [recurrent network](https://en.wikipedia.org/wiki/Recurrent_neural_network). It uses a technique called [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) which I'll really deep dive into in later videos.
+The code (see: [demo.py](demo.py)) is for [this](https://youtu.be/si8zZHkufRY) video on Youtube by Siraj Raval. It uses [TFLearn](http://tflearn.org/) to train a Sentiment Analyzer on a set of IMDB [Movie ratings](https://www.kaggle.com/deepmatrix/imdb-5000-movie-dataset). Once trained, given some input text, it will be able to classify it as either positive or negative. The neural network that is built for this is a [recurrent network](https://en.wikipedia.org/wiki/Recurrent_neural_network). It uses a technique called [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) which I'll really deep dive into in later videos.
 
 ## Dependencies
 
@@ -17,7 +17,7 @@ Use [this](http://tflearn.org/installation/) guide to install TFLearn. Or just u
 
 Run ``demo.py`` in terminal and it should start training
 
-## Challenge
+## Challenge (where this repo takes over)
 
 The challenge for this video is to train a model on [this](https://www.kaggle.com/egrinstein/20-years-of-games) dataset of video game reviews from IGN.com. Then, given some new video game title it should be able to classify it. You can use [pandas](http://pandas.pydata.org/) to parse this dataset. Right now each review has a label that's either Amazing, Great, Good, Mediocre, painful, or awful. These are the emotions. Using the existing labels is *extra credit*. The baseline is that you can just convert the labels so that there are only 2 emotions (positive or negative). Ideally you can use an RNN via TFLearn like the one in this example, but I'll accept other types of ML models as well.
 
