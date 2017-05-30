@@ -16,7 +16,11 @@ df = pd.read_csv('cleaned_ign_reviews.csv')
 ## 2. Transform
 ### * -> Numeric
 
+# convert 'Y'/'N' -> 1/0
+df['editors_choice'] = df['editors_choice'].apply(lambda l: 1 if l == 'Y' else 0)
+
 print(df[:10])
+
 ### Normalize
 
 
