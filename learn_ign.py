@@ -3,25 +3,55 @@ import pandas as pd
 # Easy is to map a review to simply "positive" or "negative"
 # Hard maps the reviews to their full descriptions:
 # learned more about the data set: "Masterpiece", "Unbearable", "Disaster", "Okay" are also rating phrases
-# Masterpiece, Amazing, Great, Good, Okay, Mediocre, Awful, Painful, Unbearable, Disaster
+# Masterpiece, Amazing, Great, Good, Okay, Mediocre, Bad, Awful, Painful, Unbearable, Disaster
 
-difficulty = { 'easy': { 'output_nodes': 2 }, 'hard': { 'output_nodes': 10 } }
+phrase_to_numeric = {
+    'Masterpiece': 0,
+    'Amazing': 1,
+    'Great': 2,
+    'Good': 3,
+    'Okay': 4,
+    'Mediocre': 5,
+    'Bad': 6,
+    'Awful': 7,
+    'Painful': 8,
+    'Unbearable': 9,
+    'Disaster': 10
+}
 
 # Data Preparation
 ## 0. Read data
 ## 1. Clean data (i.e. remove redundancies)
-df = pd.read_csv('cleaned_ign_reviews.csv')
+reviews = pd.read_csv('cleaned_ign_reviews.csv')
 
 
 ## 2. Transform
 ### * -> Numeric
 
 # convert 'Y'/'N' -> 1/0
-df['editors_choice'] = df['editors_choice'].apply(lambda l: 1 if l == 'Y' else 0)
+reviews['editors_choice'] = reviews['editors_choice'].apply(lambda l: 1 if l == 'Y' else 0)
 
-print(df[:10])
+# phrases to numbers
+reviews['score_phrase'] = reviews['score_phrase'].apply(lambda phrase: phrase_to_numeric[phrase])
 
-### Normalize
+unique_genres = reviews.drop_duplicates(['genre'])
+
+genre_to_numeric = { genre: i for i, genre in enumerate(unique_genres['genre'].sort_values())}
+
+reviews['genre'] = reviews['genre'].apply(lambda genre: genre_to_numeric[genre])
+
+categorical_fields = ['score_phrase', 'editors_choice', 'release_year', 'release_month', 'release_day', 'genre']
+
+for field in categorical_fields:
+    dummies = pd.get_dummies(reviews[field], prefix=field, drop_first=False)
+    reviews = pd.concat([reviews, dummies], axis=1) # concat the new columns
+
+data = reviews.drop(categorical_fields, axis=1)
+
+print(data.head())
+
+for col in data:
+    print(col)
 
 
 ## 3. Reduction
