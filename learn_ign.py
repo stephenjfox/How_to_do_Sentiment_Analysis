@@ -48,12 +48,15 @@ for field in categorical_fields:
 
 data = reviews.drop(categorical_fields, axis=1)
 
+quant_features = ['score']
+
+for each in quant_features:
+    mean, std = data[each].mean(), data[each].std()
+    data.loc[:, each] = (data[each] - mean)/std
+
 print(data.head())
 
-for col in data:
-    print(col)
-
-
+data.to_csv('data_scaled.csv', index=False)
 ## 3. Reduction
 ### Dimensionality Reduction
 ### Feature Extraction
