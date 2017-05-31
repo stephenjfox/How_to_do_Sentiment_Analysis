@@ -5,19 +5,6 @@ import pandas as pd
 # learned more about the data set: "Masterpiece", "Unbearable", "Disaster", "Okay" are also rating phrases
 # Masterpiece, Amazing, Great, Good, Okay, Mediocre, Bad, Awful, Painful, Unbearable, Disaster
 
-phrase_to_numeric = {
-    'Masterpiece': 0,
-    'Amazing': 1,
-    'Great': 2,
-    'Good': 3,
-    'Okay': 4,
-    'Mediocre': 5,
-    'Bad': 6,
-    'Awful': 7,
-    'Painful': 8,
-    'Unbearable': 9,
-    'Disaster': 10
-}
 
 # Data Preparation
 ## 0. Read data
@@ -32,7 +19,6 @@ reviews = pd.read_csv('cleaned_ign_reviews.csv')
 reviews['editors_choice'] = reviews['editors_choice'].apply(lambda l: 1 if l == 'Y' else 0)
 
 # phrases to numbers
-reviews['score_phrase'] = reviews['score_phrase'].apply(lambda phrase: phrase_to_numeric[phrase])
 
 unique_genres = reviews.drop_duplicates(['genre'])
 
@@ -40,7 +26,7 @@ genre_to_numeric = { genre: i for i, genre in enumerate(unique_genres['genre'].s
 
 reviews['genre'] = reviews['genre'].apply(lambda genre: genre_to_numeric[genre])
 
-categorical_fields = ['score_phrase', 'editors_choice', 'release_year', 'release_month', 'release_day', 'genre']
+categorical_fields = ['editors_choice', 'release_year', 'release_month', 'release_day', 'genre']
 
 for field in categorical_fields:
     dummies = pd.get_dummies(reviews[field], prefix=field, drop_first=False)
