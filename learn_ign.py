@@ -20,9 +20,4 @@ for title_num, r in enumerate(titles):
     # write it back (is this slower?)
     titles[title_num] = doc2vec
 
-# I'm not sure about copy-by-reference, so we'll check that here
-print('titles:', titles[:5])
-
-print('df[\'title\']', df['title'].head())
-
-print(titles[11868]) # our longest entry is 15 cells. We can pad that in tflearn... :)
+df.to_csv('titles_as_vectors.csv', index=False)
