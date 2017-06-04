@@ -35,3 +35,4 @@ model.fit(trainX, trainY, validation_set=(testX, testY), show_metric=True,
             batch_size=48)
 
 # Load into TFLearn model: http://tflearn.org/data_utils/#load_csv
+model.save('study_ign.tflearn')
