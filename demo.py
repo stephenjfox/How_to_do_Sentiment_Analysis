@@ -8,6 +8,10 @@ from tflearn.datasets import imdb
 train, test, _ = imdb.load_data(path='imdb.pkl', n_words=10000,
                                 valid_portion=0.1)
 trainX, trainY = train
+
+print(trainX[:10])
+print(trainY[:10])
+
 testX, testY = test
 
 # Data preprocessing
