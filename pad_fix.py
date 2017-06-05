@@ -1,9 +1,7 @@
-import pandas as pd
-
 from tflearn.data_utils import pad_sequences
 
-df = pd.read_csv('titles_as_vectors.csv')
+data = [[1, 2, 3]]
 
-df['title'] = pad_sequences(df['title'])
+padded = pad_sequences(data, maxlen=10)
 
-print(df['title'][0])
+print(padded)
