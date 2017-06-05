@@ -2,7 +2,7 @@ import tflearn
 from tflearn.data_utils import load_csv, to_categorical
 
 # might need (..., categorical_labels=True, n_classes=11)
-data, labels = load_csv('data_scaled.fix.csv', target_column=0)
+data, labels = load_csv('ign_formatted_padded.csv', target_column=0)
 
 total_records = (len(data) + len(labels)) // 2 # incase things got funny - will have to compensate later
 
@@ -24,15 +24,15 @@ testY = to_categorical(testY, nb_classes=11)
 number_of_inputs = len(trainX[0])
 
 net = tflearn.input_data([None, number_of_inputs])
-net = tflearn.embedding(net, input_dim=number_of_inputs**2, output_dim=128)
-net = tflearn.lstm(net, 128, dropout=0.8)
+net = tflearn.embedding(net, input_dim=number_of_inputs, output_dim=121)
+net = tflearn.lstm(net, 121, dropout=0.8)
 net = tflearn.fully_connected(net, 11, activation='softmax')
 net = tflearn.regression(net, optimizer='adam', learning_rate=0.01,
                         loss='categorical_crossentropy')
 
 model = tflearn.DNN(net)
 model.fit(trainX, trainY, validation_set=(testX, testY), show_metric=True,
-            batch_size=48)
+            batch_size=32)
 
 # Load into TFLearn model: http://tflearn.org/data_utils/#load_csv
 model.save('study_ign.tflearn')
