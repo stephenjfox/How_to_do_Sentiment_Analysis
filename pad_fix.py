@@ -1,7 +1,21 @@
+import pandas as pd
+from ast import literal_eval
 from tflearn.data_utils import pad_sequences
 
-data = [[1, 2, 3]]
+df = pd.read_csv('titles_as_vectors.csv')
 
-padded = pad_sequences(data, maxlen=10)
+print("\n----From the file:----\n", df['title'].head())
 
-print(padded)
+df['title'] = df['title'].apply(literal_eval)
+
+print("\n----*.apply(literal_eval):----\n", df['title'].head())
+
+df['title'] = pad_sequences(df['title'], maxlen=20)
+
+print("\n----Sequence padded:----\n", df['title'].head())
+
+# data = [[1, 2, 3]]
+#
+# padded = pad_sequences(data, maxlen=10)
+#
+# print(padded)
