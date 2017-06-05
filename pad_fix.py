@@ -14,12 +14,24 @@ padded = pad_sequences(df['title'], maxlen=20)
 
 print("\n----Sequence padded:----\n", type(padded), "\ndata:", padded[0])
 
+def cheap_pad(array, length, pad_with=0):
+    """
+    Performs a padding of the array elements in place
+    """
+    if len(array) < length:
+        while len(array) < length:
+            array.append(pad_with)
+    if len(array) > length:
+        return array[:length]
+    return array
+
 print()
 print("----Matching up lengths:----\n")
 
-print("df['title'] length =", len(df['title']))
-print("padded data length =", len(padded))
+df['title'] = df['title'].apply(lambda array: cheap_pad(array, 15))
 
+print("Updated df['title']")
+print(df['title'].head())
 # data = [[1, 2, 3]]
 #
 # padded = pad_sequences(data, maxlen=10)
