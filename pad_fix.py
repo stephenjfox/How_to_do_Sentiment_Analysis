@@ -32,6 +32,8 @@ df['title'] = df['title'].apply(lambda array: cheap_pad(array, 15))
 
 print("Updated df['title']")
 print(df['title'].head())
+
+df.to_csv('ign_formatted_padded.csv')
 # data = [[1, 2, 3]]
 #
 # padded = pad_sequences(data, maxlen=10)
